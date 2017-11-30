@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "514212928380",
+    "project_id": "popoika-187411"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:514212928380:android:096d45f9a1097477",
+        "android_client_info": {
+          "package_name": "com.example.scryptan.popoika"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "514212928380-hr6femc0e3r87sgcvghqk1n63u1fmpv4.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "514212928380-0qqlglkl1s214ngf7dljnuc7cefq1fcs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.scryptan.popoika",
+            "certificate_hash": "0a4f19154b684243b58cd000d865914b79f625c6"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBizYcDD0n-9K1zBlmtfkHsEimtHV82Cs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
