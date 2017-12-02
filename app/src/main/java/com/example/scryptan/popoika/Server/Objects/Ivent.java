@@ -22,10 +22,16 @@ public class Ivent {
     @SerializedName("pic")
     @Expose
     public String pic;
-    public Ivent(String name, String description, String latitude, String longitude) {
+    @SerializedName("stack")
+    @Expose
+    public String stack;
+
+    public Ivent(String name, String description, String latitude, String longitude, String pic, String stack) {
         this.name = name;
         this.description = description;
         Latitude = latitude;
         Longitude = longitude;
+        this.pic = pic;
+        this.stack = stack;
     }
 }

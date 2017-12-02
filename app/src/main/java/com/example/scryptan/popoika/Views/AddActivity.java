@@ -42,7 +42,7 @@ public class AddActivity extends AppCompatActivity {
     String TAG = "AddActivity", latitude, longitude;
     List<Address> adresses;
     private Geocoder geocoder;
-    EditText nameET, decriptionET, adressET;
+    EditText nameET, decriptionET, adressET, stackET;
     ProgressBar loadingPB;
     ImageView iv;
     Button pullBTN;
@@ -59,12 +59,15 @@ public class AddActivity extends AppCompatActivity {
         nameET =(EditText) findViewById(R.id.nameET);
         decriptionET =(EditText) findViewById(R.id.descriptionET);
         adressET =(EditText) findViewById(R.id.adressET);
+        stackET = (EditText) findViewById(R.id.stackET);
         iv = (ImageView) findViewById(R.id.photoIV);
         loadingPB = (ProgressBar) findViewById(R.id.loadingPB);
         pullBTN = (Button) findViewById(R.id.readyBTN);
         loadingPB.setVisibility(View.GONE);
+        //------------------------------------------------------------------------------------------
         createNewIvent = ApiUtils.createNewIvent();
         uploadImage = ApiUtils.uploadImage();
+        //------------------------------------------------------------------------------------------
         adresses = null;
         geocoder = new Geocoder(this, Locale.getDefault());
     }
@@ -97,7 +100,8 @@ public class AddActivity extends AppCompatActivity {
                 nameET.getText().toString(),
                 decriptionET.getText().toString(),
                 latitude,
-                longitude)).enqueue(new Callback<Ivent>() {
+                longitude,
+                stackET.toString())).enqueue(new Callback<Ivent>() {
             @Override
             public void onResponse(Call<Ivent> call, Response<Ivent> response) {
                 if(response.isSuccessful()){

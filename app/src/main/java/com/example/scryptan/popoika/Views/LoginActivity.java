@@ -19,6 +19,7 @@ import com.example.scryptan.popoika.Server.Objects.toServer.toGoogleSignIn;
 import com.example.scryptan.popoika.Server.Objects.toServer.toLogin;
 import com.example.scryptan.popoika.Server.Objects.toServer.toRegister;
 import com.example.scryptan.popoika.Services.DeviceService;
+import com.example.scryptan.popoika.Services.UserLocationListener;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -51,6 +52,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        UserLocationListener.SetUpLocationListener(getApplicationContext());
         //--------------------------------------------------------
         loginET = (EditText) findViewById(R.id.emailET);
         pswdET = (EditText) findViewById(R.id.pswdET);
@@ -66,7 +68,10 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         //---------------------------------------------------------
         GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         googleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this,this).addApi(Auth.GOOGLE_SIGN_IN_API, googleSignInOptions).build();
+        Intent intent = new Intent(this, MapsActivity.class);
+        startActivity(intent);
     }
+
     public void onClick(View v){
         switch (v.getId()){
             case R.id.loginBTN:
