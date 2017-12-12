@@ -25,13 +25,18 @@ public class Ivent {
     @SerializedName("stack")
     @Expose
     public String stack;
+    @SerializedName("amount")
+    @Expose
+    public String amount;
 
-    public Ivent(String name, String description, String latitude, String longitude, String pic, String stack) {
+    public Ivent(String _id, String name, String description, String latitude, String longitude, String pic, String stack, String amount) {
+        this._id = _id;
         this.name = name;
         this.description = description;
         Latitude = latitude;
         Longitude = longitude;
         this.pic = pic;
         this.stack = stack;
+        this.amount = amount;
     }
 }

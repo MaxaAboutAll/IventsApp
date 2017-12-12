@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fab_coordinator_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#EEEEEE"
-        android:fitsSystemWindows="true">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EEEEEE"
+    android:fitsSystemWindows="true">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -26,12 +26,29 @@
                     android:id="@+id/addFAB"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:clickable="true"
-                    app:srcCompat="@drawable/cast_ic_expanded_controller_play"
+                    app:srcCompat="@drawable/plus"
+                    app:borderWidth="0dp"
+                    app:elevation="6dp"
                     android:layout_gravity="bottom|left"
                     android:layout_marginLeft="15dp"
                     android:layout_marginBottom="15dp"
-                    android:onClick="onClick"/>
+                    android:onClick="onClick"
+                    android:backgroundTint="#00bcd4"
+                    app:fabSize="normal"/>
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/teamFAB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    app:srcCompat="@drawable/team"
+                    app:borderWidth="0dp"
+                    app:elevation="6dp"
+                    android:layout_gravity="top|right"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="15dp"
+                    android:backgroundTint="#0097a7"
+                    app:fabSize="normal"/>
         </FrameLayout>
-</LinearLayout>
+</android.support.v4.widget.SwipeRefreshLayout>

@@ -45,7 +45,8 @@
             android:name=".Views.MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity android:name=".Views.AddActivity" />
-        <activity android:name=".Views.FollowActivity"></activity>
+        <activity android:name=".Views.FollowActivity" />
+        <activity android:name=".Views.TeamActivity"></activity>
     </application>
 
 </manifest>

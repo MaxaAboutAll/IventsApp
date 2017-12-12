@@ -4,6 +4,7 @@ package com.example.scryptan.popoika.Server;
 import com.example.scryptan.popoika.Server.Interfaces.CreateNewIvent;
 import com.example.scryptan.popoika.Server.Interfaces.GetIvents;
 import com.example.scryptan.popoika.Server.Interfaces.GetMyPartyFriends;
+import com.example.scryptan.popoika.Server.Interfaces.GetMyTeam;
 import com.example.scryptan.popoika.Server.Interfaces.GoogleSignIn;
 import com.example.scryptan.popoika.Server.Interfaces.Login;
 import com.example.scryptan.popoika.Server.Interfaces.Register;
@@ -32,6 +33,9 @@ public class ApiUtils {
     }
     public static GetMyPartyFriends getMyPartyFriends(){
         return RetrofitClient.getClient(BASE_URl).create(GetMyPartyFriends.class);
+    }
+    public static GetMyTeam getMyTeam(){
+        return RetrofitClient.getClient(BASE_URl).create(GetMyTeam.class);
     }
 
 }

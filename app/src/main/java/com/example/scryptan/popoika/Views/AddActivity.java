@@ -101,7 +101,8 @@ public class AddActivity extends AppCompatActivity {
                 decriptionET.getText().toString(),
                 latitude,
                 longitude,
-                stackET.toString())).enqueue(new Callback<Ivent>() {
+                stackET.toString(),
+                "0")).enqueue(new Callback<Ivent>() {
             @Override
             public void onResponse(Call<Ivent> call, Response<Ivent> response) {
                 if(response.isSuccessful()){

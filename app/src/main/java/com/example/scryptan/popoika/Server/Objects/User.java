@@ -10,17 +10,21 @@ public class User {
     @SerializedName("telephone_id")
     @Expose
     public String telephoneId;
-    @SerializedName("nick")
+    @SerializedName("name")
     @Expose
-    public String nick;
+    public String name;
+    @SerializedName("surname")
+    @Expose
+    public String surname;
     @SerializedName("pswd")
     @Expose
     public String pswd;
 
-    public User(String id, String telephoneId, String nick, String pswd) {
+    public User(String id, String telephoneId, String name, String surname, String pswd) {
         this.id = id;
         this.telephoneId = telephoneId;
-        this.nick = nick;
+        this.name = name;
+        this.surname = surname;
         this.pswd = pswd;
     }
 }
