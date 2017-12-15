@@ -40,34 +40,29 @@
         android:id="@+id/descriptionTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="28dp"
+        android:drawableLeft="@drawable/follow_desc"
         android:fontFamily="@font/gothic_font"
         android:text="Description ivent"
         android:textAlignment="center"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameTV"
-        android:drawableLeft="@drawable/follow_desc"/>
+        app:layout_constraintTop_toBottomOf="@+id/nameTV" />
 
     <TextView
         android:id="@+id/adressTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="28dp"
+        android:drawableLeft="@drawable/follow_location"
         android:fontFamily="@font/gothic_font"
         android:text="Adress ivent"
         android:textAlignment="center"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/descriptionTV"
-        android:drawableLeft="@drawable/follow_location"/>
+        app:layout_constraintTop_toBottomOf="@+id/descriptionTV" />
 
     <Button
         android:id="@+id/followBTN"
