@@ -8,6 +8,6 @@ import retrofit2.http.Body;
 import retrofit2.http.POST;
 
 public interface GetMyTeam {
-    @POST
+    @POST("/getMyTeam")
     Call<Ivent> getMyTeam(@Body toGetMyTeam toGetMyTeam);
 }

@@ -44,11 +44,24 @@
                     android:clickable="true"
                     app:srcCompat="@drawable/team"
                     app:borderWidth="0dp"
+                    android:onClick="onClick"
                     app:elevation="6dp"
                     android:layout_gravity="top|right"
                     android:layout_marginRight="15dp"
                     android:layout_marginTop="15dp"
                     android:backgroundTint="#0097a7"
                     app:fabSize="normal"/>
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/exitFAB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    app:srcCompat="@drawable/door"
+                    android:layout_gravity="bottom|left"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:onClick="onClick"
+                    app:fabSize="normal" />
         </FrameLayout>
 </android.support.v4.widget.SwipeRefreshLayout>

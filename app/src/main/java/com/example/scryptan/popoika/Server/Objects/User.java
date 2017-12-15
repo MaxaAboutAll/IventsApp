@@ -7,24 +7,20 @@ public class User {
     @SerializedName("_id")
     @Expose
     public String id;
-    @SerializedName("telephone_id")
+    @SerializedName("nick")
     @Expose
-    public String telephoneId;
-    @SerializedName("name")
+    public String nick;
+    @SerializedName("status")
     @Expose
-    public String name;
-    @SerializedName("surname")
+    public String status;
+    @SerializedName("party")
     @Expose
-    public String surname;
-    @SerializedName("pswd")
-    @Expose
-    public String pswd;
+    public String party;
 
-    public User(String id, String telephoneId, String name, String surname, String pswd) {
+    public User(String id, String nick, String status, String party) {
         this.id = id;
-        this.telephoneId = telephoneId;
-        this.name = name;
-        this.surname = surname;
-        this.pswd = pswd;
+        this.nick = nick;
+        this.status = status;
+        this.party = party;
     }
 }

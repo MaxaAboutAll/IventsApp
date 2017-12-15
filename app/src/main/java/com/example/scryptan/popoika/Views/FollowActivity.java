@@ -6,15 +6,18 @@ import android.location.Geocoder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.scryptan.popoika.R;
 import com.example.scryptan.popoika.Server.ApiUtils;
-import com.example.scryptan.popoika.Server.Interfaces.CreateNewIvent;
+import com.example.scryptan.popoika.Server.Interfaces.FollowIvent;
 import com.example.scryptan.popoika.Server.Objects.Ivent;
+import com.example.scryptan.popoika.Server.Objects.User;
 import com.example.scryptan.popoika.Server.Objects.toServer.toCreateNewIvent;
+import com.example.scryptan.popoika.Server.Objects.toServer.toFollowIvent;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.squareup.picasso.Picasso;
@@ -29,34 +32,39 @@ import retrofit2.Response;
 
 public class FollowActivity extends AppCompatActivity {
 
-    private String iventJSON, adress;
+    private String iventJSON, adress, userJSON;
     private Gson gson;
     private GsonBuilder builder;
-    private CreateNewIvent createNewIvent;
+    private FollowIvent followIvent;
+    Button followBTN;
     TextView nameTV, descriptionTV, adressTV, stackTV;
     ImageView photoIV;
     private Ivent ivent;
     List<Address> adresses;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_follow);
         //------------------------------------------------------------------------------------------
-        createNewIvent = ApiUtils.createNewIvent();
+        followIvent = ApiUtils.followIvent();
         //------------------------------------------------------------------------------------------
+        followBTN = (Button) findViewById(R.id.followBTN);
         nameTV = (TextView) findViewById(R.id.nameTV);
         descriptionTV = (TextView) findViewById(R.id.descriptionTV);
         adressTV = (TextView) findViewById(R.id.adressTV);
         stackTV = (TextView) findViewById(R.id.stackTV);
         photoIV = (ImageView) findViewById(R.id.photoIV);
         //------------------------------------------------------------------------------------------
-        Intent intent = new Intent();
-        iventJSON = intent.getStringExtra("ivent");
+        Intent intent = getIntent();
+        iventJSON = intent.getStringExtra("Ivent");
+        userJSON = intent.getStringExtra("User");
         //------------------------------------------------------------------------------------------
         builder = new GsonBuilder();
         gson = builder.create();
         ivent = gson.fromJson(iventJSON, Ivent.class);
+        user = gson.fromJson(userJSON, User.class);
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
         //------------------------------------------------------------------------------------------
         if(ivent!=null) {
@@ -72,36 +80,32 @@ public class FollowActivity extends AppCompatActivity {
             adressTV.setText(adress);
             stackTV.setText(ivent.amount+"/"+ivent.stack);
         }
+        Picasso.with(getApplicationContext())
+                .load(ivent.pic)
+                .resize(100, 100)
+                .centerCrop()
+                .into(photoIV);
+        if(user.party!=null||user.party!=""){
+            followBTN.setVisibility(View.GONE);
+        }
     }
 
     public void onClick(View view){
-        Ivent newIvent = ivent;
-        int newAmount = Integer.getInteger(newIvent.amount)+1;
-        newIvent.amount = newAmount+"";
-        toCreateNewIvent(newIvent);
+        FollowTheIvent();
     }
-    public void toCreateNewIvent(Ivent Ivent){
-        createNewIvent.createNewIvent(new toCreateNewIvent(
-                Ivent._id,
-                Ivent.name,
-                Ivent.description,
-                Ivent.Latitude,
-                Ivent.Longitude,
-                Ivent.stack,
-                Ivent.amount))
-                .enqueue(new Callback<Ivent>() {
-            @Override
-            public void onResponse(Call<Ivent> call, Response<Ivent> response) {
-                if(response.isSuccessful()){
-                    Toast.makeText(getApplicationContext(),"You successful followed",Toast.LENGTH_SHORT).show();
-                }
-            }
+    public void FollowTheIvent(){
+       followIvent.followIvent(new toFollowIvent(ivent._id,user.id)).enqueue(new Callback<User>() {
+           @Override
+           public void onResponse(Call<User> call, Response<User> response) {
+               if(response.isSuccessful()){
+                   finish();
+               }
+           }
 
-            @Override
-            public void onFailure(Call<Ivent> call, Throwable t) {
-                Toast.makeText(getApplicationContext(),"Fail with network or server",Toast.LENGTH_SHORT).show();
-            }
-        });
+           @Override
+           public void onFailure(Call<User> call, Throwable t) {
 
+           }
+       });
     }
 }

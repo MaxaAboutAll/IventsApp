@@ -14,8 +14,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.scryptan.popoika.R;
+import com.example.scryptan.popoika.Server.ApiUtils;
+import com.example.scryptan.popoika.Server.Interfaces.GetMyPartyFriends;
 import com.example.scryptan.popoika.Server.Objects.Ivent;
 import com.example.scryptan.popoika.Server.Objects.User;
+import com.example.scryptan.popoika.Server.Objects.toServer.toGetMyPartyFriends;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.squareup.picasso.Picasso;
@@ -23,6 +26,10 @@ import com.squareup.picasso.Picasso;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class TeamActivity extends AppCompatActivity {
 
@@ -38,6 +45,7 @@ public class TeamActivity extends AppCompatActivity {
     private GsonBuilder builder;
     private String iventJSON, adress;
     private Geocoder geocoder;
+    private GetMyPartyFriends getMyPartyFriends;
     List<Address> adresses;
     List<User> users;
 
@@ -52,7 +60,7 @@ public class TeamActivity extends AppCompatActivity {
         descriptionTV = (TextView) findViewById(R.id.descriptionTV);
         adressTV = (TextView) findViewById(R.id.adressTV);
         stackTV = (TextView) findViewById(R.id.stackTV);
-        photoIV = (ImageView) findViewById(R.id.photoIV);
+        photoIV = (ImageView) findViewById(R.id.photoIVAT);
         recyclerView = (RecyclerView) findViewById(R.id.contentRV);
         contentLL.setVisibility(View.GONE);
         recyclerView.setHasFixedSize(true);
@@ -61,14 +69,14 @@ public class TeamActivity extends AppCompatActivity {
         //------------------------------------------------------------------------------------------
         builder = new GsonBuilder();
         gson = builder.create();
+        getMyPartyFriends = ApiUtils.getMyPartyFriends();
         //------------------------------------------------------------------------------------------
-        Intent intent = new Intent();
+        Intent intent = getIntent();
         iventJSON = intent.getStringExtra("Ivent");
         ivent = gson.fromJson(iventJSON, Ivent.class);
         geocoder = new Geocoder(this, Locale.getDefault());
         //------------------------------------------------------------------------------------------
-        setData();
-        setRecyclerView();
+        getData();
     }
 
     public void onClick(View v){
@@ -84,6 +92,27 @@ public class TeamActivity extends AppCompatActivity {
         }
     }
 
+    private void getData(){
+        Picasso.with(this).load(ivent.pic).into(photoIV);
+        getMyPartyFriends.getFriends(new toGetMyPartyFriends(ivent._id)).enqueue(new Callback<List<User>>() {
+            @Override
+            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                if(!response.isSuccessful()) return;
+                if(response.isSuccessful()) {
+                    users = response.body();
+                    mAdapter = new MyAdapter(users,getApplicationContext());
+                    setData();
+                    setRecyclerView();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<User>> call, Throwable t) {
+
+            }
+        });
+    }
+
     private void setRecyclerView(){
         mAdapter = new MyAdapter(users,getApplicationContext());
         recyclerView.setAdapter(mAdapter);
@@ -97,7 +126,6 @@ public class TeamActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            Picasso.with(getApplicationContext()).load(ivent.pic).into(photoIV);
             nameTV.setText(ivent.name);
             descriptionTV.setText(ivent.description);
             adressTV.setText(adress);

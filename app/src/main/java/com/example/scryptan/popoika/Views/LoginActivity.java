@@ -42,20 +42,18 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private toLogin toSendLogin;
     private toRegister toSendRegister;
     private toGoogleSignIn toSendGoogleSignIn;
-    private String nick, pswd, status, toSend, TAG = "LoginActivity";
-    private EditText loginET,pswdET;
+    private String  status, toSend, TAG = "LoginActivity";
     private Gson gson;
     private GsonBuilder builder;
     private GoogleApiClient googleApiClient;
     private static final int REQ_CODE = 9001;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         UserLocationListener.SetUpLocationListener(getApplicationContext());
         //--------------------------------------------------------
-        loginET = (EditText) findViewById(R.id.emailET);
-        pswdET = (EditText) findViewById(R.id.pswdET);
         status = "online";
         deviceService = new DeviceService(getContentResolver());
         //---------------------------------------------------------
@@ -68,19 +66,13 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         //---------------------------------------------------------
         GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         googleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this,this).addApi(Auth.GOOGLE_SIGN_IN_API, googleSignInOptions).build();
-        Intent intent = new Intent(this, MapsActivity.class);
-        startActivity(intent);
     }
 
-    public void onClick(View v){
+    public void clickMe(View v){
+        Toast.makeText(getApplicationContext(),"onClick!",Toast.LENGTH_SHORT).show();
         switch (v.getId()){
-            case R.id.loginBTN:
-                goLogin();
-                break;
-            case R.id.registerBTN:
-                goRegister();
-                break;
-            case R.id.googleLoginBTN:
+            case R.id.googleSignIn:
+                Toast.makeText(getApplicationContext(),"GOOGLE!",Toast.LENGTH_SHORT).show();
                 googleLogin();
                 break;
             default:
@@ -88,10 +80,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         }
     }
 
-    private void goLogin(){
-        nick = loginET.getText().toString();
-        pswd = pswdET.getText().toString();
-        toSendLogin = new toLogin(nick,pswd,deviceService.getDeviceID(),status);
+    private void goLogin(String name, String nick){
+        toSendLogin = new toLogin(deviceService.getDeviceID(),name,nick,status);
         login.login(toSendLogin).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
@@ -118,10 +108,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             }
         });
     }
-    private void goRegister(){
-        nick = loginET.getText().toString();
-        pswd = pswdET.getText().toString();
-        toSendRegister = new toRegister(nick,pswd,deviceService.getDeviceID(),status);
+    private void goRegister(String name, String nick){
+        toSendRegister = new toRegister(deviceService.getDeviceID(),name,nick,status);
         register.register(toSendRegister).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
@@ -153,8 +141,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
     private void handleResult(GoogleSignInResult result){
         GoogleSignInAccount account = result.getSignInAccount();
-        String email = account.getEmail();
-        toSendGoogleSignIn = new toGoogleSignIn(email,status,deviceService.getDeviceID());
+        String name = account.getDisplayName();
+        toSendGoogleSignIn = new toGoogleSignIn(name,status,deviceService.getDeviceID(),"");
         googleSignIn.googleSignIn(toSendGoogleSignIn).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {

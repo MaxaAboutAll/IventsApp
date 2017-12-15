@@ -7,12 +7,12 @@
     tools:context="com.example.scryptan.popoika.Views.TeamActivity">
 
     <ImageView
-        android:id="@+id/photoIV"
-        android:layout_width="275dp"
-        android:layout_height="145dp"
+        android:id="@+id/photoIVAT"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="52dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,61 +26,67 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
+        android:onClick="onClick"
         android:text="Show content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/photoIV" />
+        app:layout_constraintTop_toBottomOf="@+id/photoIVAT"
+        android:fontFamily="@font/gothic_font"/>
 
     <LinearLayout
         android:id="@+id/contentLL"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="172dp"
-        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:onClick="onClick"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/photoIVAT">
 
         <TextView
             android:id="@+id/nameTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Name Ivent" />
+            android:hint="Name Ivent"
+            android:fontFamily="@font/gothic_font"/>
 
         <TextView
             android:id="@+id/descriptionTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Description Ivent" />
+            android:hint="Description Ivent"
+            android:fontFamily="@font/gothic_font"/>
 
         <TextView
             android:id="@+id/adressTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Adress" />
+            android:text="Adress"
+            android:fontFamily="@font/gothic_font"/>
 
         <TextView
             android:id="@+id/stackTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Stack" />
+            android:text="Stack"
+            android:fontFamily="@font/gothic_font"/>
     </LinearLayout>
 
     <ScrollView
         android:id="@+id/usersSV"
-        android:layout_width="368dp"
-        android:layout_height="233dp"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:layout_marginBottom="24dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/contentLL">
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/contentRV"

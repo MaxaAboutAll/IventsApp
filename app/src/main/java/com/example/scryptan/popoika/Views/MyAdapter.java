@@ -66,19 +66,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        final String name = values.get(position).name;
+        final String name = values.get(position).nick;
         holder.userName.setText(name);
-        Picasso.with(context)
-                .load("https://pp.userapi.com/c626116/v626116398/22441/iu390Mv4DeM.jpg")
-                .resize(100, 100)
-                .centerCrop()
-                .into(holder.iconImg);
-        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //remove(position);
-            }
-        });
+//        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //remove(position);
+//            }
+//        });
     }
 
     // Return the size of your dataset (invoked by the layout manager)

@@ -19,10 +19,11 @@ import android.widget.Toast;
 
 import com.example.scryptan.popoika.R;
 import com.example.scryptan.popoika.Server.ApiUtils;
-import com.example.scryptan.popoika.Server.Interfaces.CreateNewIvent;
 import com.example.scryptan.popoika.Server.Interfaces.UploadImage;
-import com.example.scryptan.popoika.Server.Objects.Ivent;
+import com.example.scryptan.popoika.Server.Objects.User;
 import com.example.scryptan.popoika.Server.Objects.toServer.toCreateNewIvent;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.File;
 import java.io.IOException;
@@ -39,7 +40,7 @@ import retrofit2.Response;
 
 public class AddActivity extends AppCompatActivity {
 
-    String TAG = "AddActivity", latitude, longitude;
+    String TAG = "AddActivity", latitude, longitude, userJSON;
     List<Address> adresses;
     private Geocoder geocoder;
     EditText nameET, decriptionET, adressET, stackET;
@@ -47,10 +48,12 @@ public class AddActivity extends AppCompatActivity {
     ImageView iv;
     Button pullBTN;
     private UploadImage uploadImage;
-    private CreateNewIvent createNewIvent;
     private toCreateNewIvent toCreateNewIvent;
     private final int GALLERY_REQUEST = 62555;
+    private User user;
     private Uri selectedImage;
+    private Gson gson;
+    private GsonBuilder builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,18 +68,24 @@ public class AddActivity extends AppCompatActivity {
         pullBTN = (Button) findViewById(R.id.readyBTN);
         loadingPB.setVisibility(View.GONE);
         //------------------------------------------------------------------------------------------
-        createNewIvent = ApiUtils.createNewIvent();
+        builder = new GsonBuilder();
+        gson = builder.create();
+        //------------------------------------------------------------------------------------------
         uploadImage = ApiUtils.uploadImage();
         //------------------------------------------------------------------------------------------
+        Intent intent = getIntent();
+        userJSON = intent.getStringExtra("User");
         adresses = null;
         geocoder = new Geocoder(this, Locale.getDefault());
+        user = gson.fromJson(userJSON, User.class);
+        //------------------------------------------------------------------------------------------
     }
 
     public void onClick(View v){
         switch (v.getId()){
             case R.id.readyBTN:
                 if(adressET.getText()!=null&&nameET.getText()!=null&&decriptionET.getText()!=null)
-                newIvent();
+                    uploadFile(selectedImage);
                 break;
             case R.id.photoIV:
                 addImage();
@@ -84,9 +93,19 @@ public class AddActivity extends AppCompatActivity {
         }
     }
 
-    public void newIvent(){
-            pullBTN.setVisibility(View.GONE);
-            loadingPB.setVisibility(View.VISIBLE);
+    public void addImage(){
+        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+        photoPickerIntent.setType("image/*");
+        startActivityForResult(photoPickerIntent, GALLERY_REQUEST);
+    }
+
+    private void uploadFile(Uri fileUri) {
+        if(fileUri == null){
+            Toast.makeText(getApplicationContext(),"Select IMAGE!!!",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        pullBTN.setVisibility(View.GONE);
+        loadingPB.setVisibility(View.VISIBLE);
         try {
             adresses = geocoder.getFromLocationName(adressET.getText().toString(),1);
         } catch (IOException e) {
@@ -96,36 +115,9 @@ public class AddActivity extends AppCompatActivity {
             latitude = adresses.get(0).getLatitude() + "";
             longitude = adresses.get(0).getLongitude() + "";
         }
-        createNewIvent.createNewIvent(new toCreateNewIvent("",
-                nameET.getText().toString(),
-                decriptionET.getText().toString(),
-                latitude,
-                longitude,
-                stackET.toString(),
-                "0")).enqueue(new Callback<Ivent>() {
-            @Override
-            public void onResponse(Call<Ivent> call, Response<Ivent> response) {
-                if(response.isSuccessful()){
-                    uploadFile(selectedImage);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Ivent> call, Throwable t) {
-                Toast.makeText(getApplicationContext(),"Fail with network or server",Toast.LENGTH_SHORT).show();
-                pullBTN.setVisibility(View.VISIBLE);
-                loadingPB.setVisibility(View.GONE);
-            }
-        });
-
-    }
-    public void addImage(){
-        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-        photoPickerIntent.setType("image/*");
-        startActivityForResult(photoPickerIntent, GALLERY_REQUEST);
-    }
-
-    private void uploadFile(Uri fileUri) {
+        if(adresses == null){
+            Toast.makeText(getApplicationContext(),"GEOCODER",Toast.LENGTH_SHORT).show();
+        }
         File file =new File(getRealPathFromURI(getApplicationContext(), fileUri));
 
         // Создаем RequestBody
@@ -135,13 +127,19 @@ public class AddActivity extends AppCompatActivity {
         // MultipartBody.Part используется, чтобы передать имя файла
         MultipartBody.Part body =
                 MultipartBody.Part.createFormData("picture", file.getName(), requestFile);
-
         // Выполняем запрос
-        Call<ResponseBody> call = uploadImage.upload(body);
-        call.enqueue(new Callback<ResponseBody>() {
+        RequestBody name = RequestBody.create(MediaType.parse("application/json"),nameET.getText().toString());
+        RequestBody desc = RequestBody.create(MediaType.parse("application/json"),decriptionET.getText().toString());
+        RequestBody lat = RequestBody.create(MediaType.parse("application/json"),latitude+"");
+        RequestBody longi = RequestBody.create(MediaType.parse("application/json"),longitude+"");
+        RequestBody stack = RequestBody.create(MediaType.parse("application/json"),stackET.getText().toString());
+        RequestBody amount = RequestBody.create(MediaType.parse("application/json"),"1");
+        RequestBody userId = RequestBody.create(MediaType.parse("application/json"),user.id);
+        Call<User> call = uploadImage.upload(body, name,desc,lat,longi,stack,amount, userId);
+        call.enqueue(new Callback<User>() {
             @Override
-            public void onResponse(Call<ResponseBody> call,
-                                   Response<ResponseBody> response) {
+            public void onResponse(Call<User> call,
+                                   Response<User> response) {
                 if(response.isSuccessful()){
                     Toast.makeText(getApplicationContext(), "Your ivent has created", Toast.LENGTH_SHORT).show();
                     finish();
@@ -150,8 +148,11 @@ public class AddActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<User> call, Throwable t) {
                 Log.e("Upload error:", t.getMessage());
+                Toast.makeText(getApplicationContext(),"Fail with network or server",Toast.LENGTH_SHORT).show();
+                pullBTN.setVisibility(View.VISIBLE);
+                loadingPB.setVisibility(View.GONE);
             }
         });
     }

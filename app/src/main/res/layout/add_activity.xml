@@ -8,18 +8,18 @@
 
     <ImageView
         android:id="@+id/photoIV"
-        android:layout_width="275dp"
-        android:layout_height="145dp"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
         android:contentDescription="@string/photo_view"
+        android:onClick="onClick"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameTV"
-        app:srcCompat="@drawable/zaglushka"
-        android:onClick="onClick"/>
+        app:srcCompat="@drawable/zaglushka" />
 
     <EditText
         android:id="@+id/nameET"
@@ -27,14 +27,14 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="52dp"
         android:ems="10"
         android:hint="Name your patry..."
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/photoIV" />
+        app:layout_constraintTop_toBottomOf="@+id/photoIV"
+        android:fontFamily="@font/gothic_font"/>
 
     <EditText
         android:id="@+id/descriptionET"
@@ -48,7 +48,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameET" />
+        app:layout_constraintTop_toBottomOf="@+id/nameET"
+        android:fontFamily="@font/gothic_font"/>
 
     <EditText
         android:id="@+id/adressET"
@@ -63,7 +64,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/descriptionET" />
+        app:layout_constraintTop_toBottomOf="@+id/descriptionET"
+        android:fontFamily="@font/gothic_font"/>
 
     <TextView
         android:id="@+id/nameTV"
@@ -76,7 +78,8 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:fontFamily="@font/gothic_font"/>
 
     <Button
         android:id="@+id/readyBTN"
@@ -86,8 +89,12 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:background="@drawable/rounded_button"
+        android:fontFamily="@font/gothic_font"
         android:onClick="onClick"
         android:text="Ready"
+        android:textColor="#ffffff"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -123,5 +130,6 @@
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/adressET"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        android:fontFamily="@font/gothic_font"/>
 </android.support.constraint.ConstraintLayout>
