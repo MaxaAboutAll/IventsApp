@@ -68,6 +68,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final String name = values.get(position).nick;
         holder.userName.setText(name);
+        Picasso.with(context).load(values.get(position).pic).into(holder.iconImg);
 //        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {

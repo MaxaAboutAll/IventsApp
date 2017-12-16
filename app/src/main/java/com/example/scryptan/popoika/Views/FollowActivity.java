@@ -80,11 +80,7 @@ public class FollowActivity extends AppCompatActivity {
             adressTV.setText(adress);
             stackTV.setText(ivent.amount+"/"+ivent.stack);
         }
-        Picasso.with(getApplicationContext())
-                .load(ivent.pic)
-                .resize(100, 100)
-                .centerCrop()
-                .into(photoIV);
+        Picasso.with(getApplicationContext()).load(ivent.pic).into(photoIV);
         if(user.party!=null||user.party!=""){
             followBTN.setVisibility(View.GONE);
         }

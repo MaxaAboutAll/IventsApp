@@ -23,49 +23,59 @@
 
     <EditText
         android:id="@+id/nameET"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="28dp"
+        android:drawableLeft="@drawable/add_name"
         android:ems="10"
-        android:hint="Name your patry..."
+        android:fontFamily="@font/gothic_font"
+        android:hint="@string/add_name"
         android:inputType="textPersonName"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/photoIV"
-        android:fontFamily="@font/gothic_font"/>
+        app:layout_constraintTop_toBottomOf="@+id/photoIV" />
 
     <EditText
         android:id="@+id/descriptionET"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:drawableLeft="@drawable/follow_desc"
         android:ems="10"
-        android:hint="Add description"
+        android:fontFamily="@font/gothic_font"
+        android:hint="@string/add_desc"
         android:inputType="textPersonName"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameET"
-        android:fontFamily="@font/gothic_font"/>
+        app:layout_constraintTop_toBottomOf="@+id/nameET" />
 
     <EditText
         android:id="@+id/adressET"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
+        android:drawableLeft="@drawable/follow_location"
         android:ems="10"
-        android:hint="Adress"
+        android:fontFamily="@font/gothic_font"
+        android:hint="@string/add_loc"
         android:inputType="textPersonName"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/descriptionET"
-        android:fontFamily="@font/gothic_font"/>
+        app:layout_constraintTop_toBottomOf="@+id/descriptionET" />
 
     <TextView
         android:id="@+id/nameTV"
@@ -74,12 +84,13 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Your Party"
+        android:fontFamily="@font/gothic_font"
+        android:text="@string/add_tv"
+        android:textColor="#000000"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:fontFamily="@font/gothic_font"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/readyBTN"
@@ -92,13 +103,15 @@
         android:background="@drawable/rounded_button"
         android:fontFamily="@font/gothic_font"
         android:onClick="onClick"
-        android:text="Ready"
+        android:text="@string/add_btn"
         android:textColor="#ffffff"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stackET" />
+        app:layout_constraintTop_toBottomOf="@+id/stackET"
+        app:layout_constraintVertical_bias="0.818" />
 
     <ProgressBar
         android:id="@+id/loadingPB"
@@ -111,8 +124,10 @@
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stackET" />
+        app:layout_constraintTop_toBottomOf="@+id/stackET"
+        app:layout_constraintVertical_bias="0.785" />
 
     <EditText
         android:id="@+id/stackET"
@@ -123,13 +138,28 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:hint="Stack"
-        android:inputType="textPersonName"
+        android:fontFamily="@font/gothic_font"
+        android:inputType="number"
+        android:textColor="#606060"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/adressET"
-        app:layout_constraintVertical_bias="0.0"
-        android:fontFamily="@font/gothic_font"/>
+        app:layout_constraintTop_toBottomOf="@+id/stackTV"
+        app:layout_constraintVertical_bias="0.029" />
+
+    <TextView
+        android:id="@+id/stackTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/gothic_font"
+        android:text="@string/add_stack"
+        android:textColor="#606060"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adressET" />
+
 </android.support.constraint.ConstraintLayout>

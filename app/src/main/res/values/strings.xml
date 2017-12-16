@@ -1,5 +1,24 @@
 <resources>
-    <string name="app_name">Popoika</string>
+    <string name="app_name">PARTY CROWN</string>
     <string name="title_activity_maps">Map</string>
     <string name="photo_view">viewDescription</string>
+    <integer name="com_vk_sdk_AppId">6300717</integer>
+    <string name="follow_tv">Name event</string>
+    <string name="follow_desc">Description event</string>
+    <string name="follow_loc">Location event</string>
+    <string name="follow_stack">Stack</string>
+    <string name="follow_btn">Follow</string>
+    <string name="login_tv">Log in with:</string>
+    <string name="team_name">Name event</string>
+    <string name="team_desc">Description event</string>
+    <string name="team_loc">Location event</string>
+    <string name="team_stack">Stack</string>
+    <string name="team_btn">Show all</string>
+    <string name="add_tv">Your party</string>
+    <string name="add_name">Name your party...</string>
+    <string name="add_desc">Date, Time, Extras...</string>
+    <string name="add_loc">Adress...</string>
+    <string name="add_stack">Members</string>
+    <string name="add_btn">Ready</string>
+    <string name="user_card">User name and Surname</string>
 </resources>

@@ -15,12 +15,14 @@ import android.widget.Toast;
 
 import com.example.scryptan.popoika.R;
 import com.example.scryptan.popoika.Server.ApiUtils;
+import com.example.scryptan.popoika.Server.Interfaces.DeleteIvent;
 import com.example.scryptan.popoika.Server.Interfaces.ExitIvent;
 import com.example.scryptan.popoika.Server.Interfaces.FollowIvent;
 import com.example.scryptan.popoika.Server.Interfaces.GetIvents;
 import com.example.scryptan.popoika.Server.Interfaces.GetMyTeam;
 import com.example.scryptan.popoika.Server.Objects.Ivent;
 import com.example.scryptan.popoika.Server.Objects.User;
+import com.example.scryptan.popoika.Server.Objects.toServer.toDeleteIvent;
 import com.example.scryptan.popoika.Server.Objects.toServer.toExitIvent;
 import com.example.scryptan.popoika.Server.Objects.toServer.toFollowIvent;
 import com.example.scryptan.popoika.Server.Objects.toServer.toGetMyTeam;
@@ -43,17 +45,17 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener, SwipeRefreshLayout.OnRefreshListener {
+public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener{
 
     private GoogleMap mMap;
     private GetIvents getIvents;
     private GetMyTeam getMyTeam;
     private ExitIvent exitIvent;
+    private DeleteIvent deleteIvent;
     private List<Ivent> ivents;
     private Gson gson;
     private GsonBuilder builder;
     private FloatingActionButton teamFAB, plusFAB, exitFAB;
-    private SwipeRefreshLayout mSwipeRefreshLayout;
     private User user;
     private String userJSON;
 
@@ -66,7 +68,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         teamFAB = (FloatingActionButton) findViewById(R.id.teamFAB);
         plusFAB = (FloatingActionButton) findViewById(R.id.addFAB);
         exitFAB = (FloatingActionButton) findViewById(R.id.exitFAB);
-        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.fab_coordinator_layout) ;
         //------------------------------------------------------------------------------------------
         builder = new GsonBuilder();
         gson = builder.create();
@@ -75,6 +76,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         exitIvent = ApiUtils.exitIvent();
         getIvents = ApiUtils.getIvents();
         getMyTeam = ApiUtils.getMyTeam();
+        deleteIvent = ApiUtils.deleteIvent();
         //------------------------------------------------------------------------------------------
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -91,6 +93,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     public void getMyTeamInIvent(){
+        try{
+            mMap.clear();
+        }catch (Exception e){
+
+        }
         getMyTeam.getMyTeam(new toGetMyTeam(user.id)).enqueue(new Callback<Ivent>() {
             @Override
             public void onResponse(Call<Ivent> call, Response<Ivent> response) {
@@ -98,13 +105,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     Toast.makeText(getApplicationContext(),"Error",Toast.LENGTH_SHORT).show();
                 }
                 if(!(response.body()==null)){
+                    Toast.makeText(getApplicationContext(),"Есть ивент",Toast.LENGTH_SHORT).show();
                     Log.e("TAG", "onResponse: "+response.body().description );
                     ivents.add(response.body());
                     plusFAB.setVisibility(View.GONE);
                     teamFAB.setVisibility(View.VISIBLE);
                     exitFAB.setVisibility(View.VISIBLE);
                     setMap();
-                    mSwipeRefreshLayout.setRefreshing(false);
                 }else {
                     getAllIvents();
                 }
@@ -118,6 +125,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     public void getAllIvents(){
+        mMap.clear();
+        ivents = new ArrayList<>();
         plusFAB.setVisibility(View.VISIBLE);
         exitFAB.setVisibility(View.GONE);
         getIvents.getIvents().enqueue(new Callback<List<Ivent>>() {
@@ -125,12 +134,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void onResponse(Call<List<Ivent>> call, Response<List<Ivent>> response) {
                 ivents = response.body();
                 setMap();
-                mSwipeRefreshLayout.setRefreshing(false);
             }
 
             @Override
             public void onFailure(Call<List<Ivent>> call, Throwable t) {
-                mSwipeRefreshLayout.setRefreshing(false);
             }
         });
     }
@@ -171,7 +178,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 startActivity(intent);
                 return;
             case R.id.exitFAB:
-                exitFromParty();
+                onExitFab();
                 return;
         }
     }
@@ -188,19 +195,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     @Override
-    public void onRefresh() {
-        mSwipeRefreshLayout.setRefreshing(false);
-        getMyTeamInIvent();
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
         getMyTeamInIvent();
     }
 
-    public void exitFromParty(){
-        exitIvent.exitIvent(new toExitIvent(user.id)).enqueue(new Callback<User>() {
+    public void deleteMyIvent(){
+        deleteIvent.deleteIvent(new toDeleteIvent(ivents.get(0)._id)).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if(response.isSuccessful()){
@@ -213,5 +214,29 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             }
         });
+    }
+
+    public void exitFromParty(){
+        exitIvent.exitIvent(new toExitIvent(user.id, ivents.get(0)._id)).enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if (response.isSuccessful()) {
+                    getAllIvents();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void onExitFab(){
+        if(ivents.get(0).owner == user.id){
+            deleteMyIvent();
+        }else {
+            exitFromParty();
+        }
     }
 }

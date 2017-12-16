@@ -84,8 +84,10 @@ public class AddActivity extends AppCompatActivity {
     public void onClick(View v){
         switch (v.getId()){
             case R.id.readyBTN:
-                if(adressET.getText()!=null&&nameET.getText()!=null&&decriptionET.getText()!=null)
-                    uploadFile(selectedImage);
+                if(adressET.getText()!=null&&nameET.getText()!=null&& decriptionET.getText()!=null)
+                    if(adressET.getText().length()>5&& nameET.getText().length()>5&& decriptionET.getText().length()>5) {
+                        uploadFile(selectedImage);
+                    }else  Toast.makeText(getApplicationContext(),"Fill all the fields",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.photoIV:
                 addImage();

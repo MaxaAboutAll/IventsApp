@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#e4e4e4"
     tools:context="com.example.scryptan.popoika.Views.TeamActivity">
 
     <ImageView
@@ -23,16 +24,57 @@
         android:id="@+id/contentBTN"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rounded_button"
+        android:fontFamily="@font/gothic_font"
         android:onClick="onClick"
-        android:text="Show content"
+        android:text="@string/team_btn"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/usersSV"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/photoIVAT"
-        android:fontFamily="@font/gothic_font"/>
+        app:layout_constraintTop_toBottomOf="@+id/descriptionTV"
+        app:layout_constraintVertical_bias="0.89" />
+
+    <TextView
+        android:id="@+id/nameTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/textlines"
+        android:drawableLeft="@drawable/add_name"
+        android:fontFamily="@font/gothic_font"
+        android:hint="@string/team_name"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/photoIVAT" />
+
+    <TextView
+        android:id="@+id/descriptionTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/textlines"
+        android:drawableLeft="@drawable/follow_desc"
+        android:fontFamily="@font/gothic_font"
+        android:hint="@string/team_desc"
+        android:textColor="#000000"
+        android:textColorHint="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameTV" />
 
     <LinearLayout
         android:id="@+id/contentLL"
@@ -40,57 +82,57 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="8dp"
         android:onClick="onClick"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/photoIVAT">
-
-        <TextView
-            android:id="@+id/nameTV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Name Ivent"
-            android:fontFamily="@font/gothic_font"/>
-
-        <TextView
-            android:id="@+id/descriptionTV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Description Ivent"
-            android:fontFamily="@font/gothic_font"/>
+        app:layout_constraintTop_toBottomOf="@+id/descriptionTV">
 
         <TextView
             android:id="@+id/adressTV"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Adress"
-            android:fontFamily="@font/gothic_font"/>
+            android:background="@drawable/textlines"
+            android:drawableLeft="@drawable/follow_location"
+            android:fontFamily="@font/gothic_font"
+            android:text="@string/team_loc"
+            android:textColor="#000000"
+            android:textColorHint="#000000" />
 
         <TextView
             android:id="@+id/stackTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Stack"
-            android:fontFamily="@font/gothic_font"/>
+            android:layout_gravity="center"
+            android:background="@drawable/bordet_tv"
+            android:fontFamily="@font/gothic_font"
+            android:padding="5dp"
+            android:text="@string/team_stack"
+            android:textColor="#000000"
+            android:textColorHint="#000000" />
     </LinearLayout>
 
     <ScrollView
         android:id="@+id/usersSV"
-        android:layout_width="0dp"
+        android:layout_width="395dp"
         android:layout_height="200dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/contentLL"
+        app:layout_constraintVertical_bias="0.86">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/contentRV"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
     </ScrollView>
 </android.support.constraint.ConstraintLayout>

@@ -16,11 +16,15 @@ public class User {
     @SerializedName("party")
     @Expose
     public String party;
+    @SerializedName("pic")
+    @Expose
+    public String pic;
 
-    public User(String id, String nick, String status, String party) {
+    public User(String id, String nick, String status, String party, String pic) {
         this.id = id;
         this.nick = nick;
         this.status = status;
         this.party = party;
+        this.pic = pic;
     }
 }

@@ -1,6 +1,7 @@
 package com.example.scryptan.popoika.Server;
 
 
+import com.example.scryptan.popoika.Server.Interfaces.DeleteIvent;
 import com.example.scryptan.popoika.Server.Interfaces.ExitIvent;
 import com.example.scryptan.popoika.Server.Interfaces.FollowIvent;
 import com.example.scryptan.popoika.Server.Interfaces.GetIvents;
@@ -44,5 +45,8 @@ public class ApiUtils {
     }
     public static ExitIvent exitIvent(){
         return RetrofitClient.getClient(BASE_URl).create(ExitIvent.class);
+    }
+    public static DeleteIvent deleteIvent(){
+        return RetrofitClient.getClient(BASE_URl).create(DeleteIvent.class);
     }
 }

@@ -16,7 +16,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="52dp"
         android:fontFamily="@font/alcubierre_font"
-        android:text="PARTY CROWD"
+        android:text="@string/app_name"
         android:textColor="#000000"
         android:textSize="25dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -31,7 +31,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
         android:fontFamily="@font/alcubierre_font"
-        android:text="Log in with:"
+        android:text="@string/login_tv"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,6 +56,7 @@
         android:layout_marginBottom="24dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:onClick="clickMe"
         app:layout_constraintBottom_toTopOf="@+id/vkSignIn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -71,7 +72,8 @@
         app:layout_constraintBottom_toTopOf="@+id/googleSignIn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/login_vk" />
+        app:srcCompat="@drawable/login_vk"
+        android:onClick="clickMe"/>
 
     <ImageButton
         android:id="@+id/googleSignIn"
@@ -83,6 +85,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/login_google" />
+        app:srcCompat="@drawable/login_google"
+        android:onClick="clickMe"/>
 
 </android.support.constraint.ConstraintLayout>

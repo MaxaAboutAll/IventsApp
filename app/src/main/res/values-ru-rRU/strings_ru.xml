@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PARTY CROWN</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="photo_view">viewDescription</string>
+    <integer name="com_vk_sdk_AppId">6300717</integer>
+    <string name="follow_tv">Название мероприятия</string>
+    <string name="follow_desc">Описание мероприятия</string>
+    <string name="follow_loc">Место проведения</string>
+    <string name="follow_stack">Стек</string>
+    <string name="follow_btn">Добавиться</string>
+    <string name="login_tv">Войти с помощью:</string>
+    <string name="team_name">Название мероприятия</string>
+    <string name="team_desc">Описание мероприятия</string>
+    <string name="team_loc">Место проведения</string>
+    <string name="team_stack">Стек</string>
+    <string name="team_btn">Больше</string>
+    <string name="add_tv">Твоё мероприятие</string>
+    <string name="add_name">Название твоего мероприятия...</string>
+    <string name="add_desc">Дата, время, условия...</string>
+    <string name="add_loc">Адресс...</string>
+    <string name="add_stack">Количество участников:</string>
+    <string name="add_btn">Создать</string>
+    <string name="user_card">Имя и фамилия пользователя</string>
+</resources>
